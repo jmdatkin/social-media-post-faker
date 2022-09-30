@@ -3,14 +3,14 @@
     export let label;
 </script>
 
-<div class="inputtext">
+<div class="textarea">
     {#if label}
     <label>
         {label}
-    <input type="text" bind:value={value}/>
+    <textarea bind:value={value}/>
     </label>
     {:else}
-    <input type="text" bind:value={value}/>
+    <textarea bind:value={value}/>
     {/if}
 </div>
 
@@ -19,10 +19,12 @@
         margin-bottom: 6px;
     }
 
-    input {
+    textarea {
         padding: 0.55rem;
         margin: 0;
         width: 100%;
+        overflow:hidden;
+        height: 120px;
         /* border-radius: 2px; */
     }
 </style>

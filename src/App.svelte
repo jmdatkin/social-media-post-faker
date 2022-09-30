@@ -1,11 +1,20 @@
 <script>
 	import InstagramPostGenerator from "./components/InstagramPostGenerator.svelte";
+	import html2canvas from "html2canvas";
+
+	const save = function () {
+		html2canvas(document.querySelector("div.post-gen"), {
+			// dpi: 144
+			scale: 2,
+		}).then((canvas) => document.body.appendChild(canvas));
+	};
 </script>
 
 <div class="container">
 	<main>
-		<h1>Instagram Post Generator</h1>
-		<InstagramPostGenerator />
+			<h1>Instagram Post Generator</h1>
+			<InstagramPostGenerator />
+			<button on:click={save}>Save</button>
 	</main>
 </div>
 
@@ -15,6 +24,7 @@
 		height: 100%;
 		place-items: center;
 		display: flex;
+		/* padding: 10em 0; */
 	}
 
 	main {
@@ -26,6 +36,8 @@
 		justify-items: flex-start;
 		max-width: none;
 		margin: 0 auto;
+		max-height: 100%;
+		/* height: auto; */
 		background-color: #eee;
 	}
 

@@ -1,22 +1,25 @@
 <script>
+    import { afterUpdate, beforeUpdate } from "svelte";
     import IgBookmarkIcon from "./IGBookmarkIcon.svelte";
     import IgCommentIcon from "./IGCommentIcon.svelte";
+    import IgDotsIcon from "./IGDotsIcon.svelte";
     import IgHeartIcon from "./IGHeartIcon.svelte";
     import IgProfileImage from "./IGProfileImage.svelte";
     import IgSendIcon from "./IGSendIcon.svelte";
+    import { makeParseFunction } from '../util';
 
     export let options = {};
 
-    // export let profileName = "tychomusic";
-    // export let caption = "";
-    // export let location = "New York, NY";
-    // export let liked = false;
-    // export let more = true;
-    // export let num_likes = 21;
-    // export let num_comments = 25;
+    const parseBody = makeParseFunction(
+        '[', ']',
+        '<span class="post-body-hashtag">',
+        '</span>');
 
-    // export let num_slideshow_steps = 6;
-    // export let active_slideshow_index = 1;
+    afterUpdate(() => {
+        document.querySelector(".caption-text").innerHTML = parseBody(
+            options.caption
+        );
+    });
 </script>
 
 <div class="post-gen post-gen-ig">
@@ -24,7 +27,7 @@
         <div class="post-gen-ig-header">
             <div class="post-gen-ig-header-content">
                 <header class="post-gen-ig-header-header">
-                    <IgProfileImage />
+                    <IgProfileImage story={options.story} />
                     <div class="post-gen-ig-profile-name-wrapper">
                         <div class="post-gen-ig-profile-name">
                             <span class="profile-name-text">
@@ -36,6 +39,9 @@
                         </div>
                     </div>
                 </header>
+                <div class="post-gen-ig-dots-icon">
+                    <IgDotsIcon />
+                </div>
             </div>
         </div>
         <div class="post-gen-ig-body">
@@ -55,8 +61,12 @@
         <div class="post-gen-ig-footer">
             <div class="post-gen-ig-footer-content">
                 <div class="post-gen-ig-slideshow-indicator">
-                    {#each Array(options.num_slideshow_steps) as step, idx }
-                    <div class={idx === options.active_slideshow_index-1 ? 'slideshow-marker slideshow-marker-active' : 'slideshow-marker'} />
+                    {#each Array(options.num_slideshow_steps) as step, idx}
+                        <div
+                            class={idx === options.active_slideshow_index - 1
+                                ? "slideshow-marker slideshow-marker-active"
+                                : "slideshow-marker"}
+                        />
                     {/each}
                 </div>
                 <div class="post-gen-ig-icon-bar">
@@ -69,11 +79,15 @@
                         <IgBookmarkIcon />
                     </div>
                 </div>
-                <div class="post-gen-ig-footer-likes">{options.num_likes} likes</div>
+                <div class="post-gen-ig-footer-likes">
+                    {options.num_likes} likes
+                </div>
                 <div class="post-gen-ig-footer-caption">
-                    <span class="caption-profile-name"> {options.profile_name} </span>
+                    <span class="caption-profile-name">
+                        {options.profile_name}
+                    </span>
                     <span class="caption-text">
-                        {options.caption}
+                        <!-- {options.caption} -->
                     </span>
                     {#if options.more}
                         <span class="caption-more">
@@ -85,7 +99,16 @@
                 <div class="post-gen-ig-footer-comments">
                     View {options.num_comments} comments
                 </div>
-                <div class="post-gen-ig-footer-time-elapsed">1 day ago</div>
+                <div class="post-gen-ig-footer-bottom-row">
+                    <span class="post-gen-ig-footer-time-elapsed"
+                        >{options.time_since}</span
+                    >
+                    {#if options.see_translation}
+                        <span class="post-gen-ig-footer-see-translation"
+                            >See translation</span
+                        >
+                    {/if}
+                </div>
             </div>
         </div>
     </div>
@@ -99,6 +122,7 @@
         --ig-secondary-background: 250, 250, 250;
         --ig-primary-button: 0, 149, 246;
         --ig-elevated-separator: 219, 219, 219;
+        --ig-link: 0, 55, 107;
         --post-step-indicator: 168, 168, 168;
         --font-weight-system-semibold: 600;
     }
@@ -237,8 +261,8 @@
         width: 100%;
         /* background-color: red; */
         display: flex;
-        justify-content: center; 
-        min-height: 46px;
+        justify-content: center;
+        /* min-height: 46px; */
         margin: 15px 0;
     }
 
@@ -336,7 +360,12 @@
     }
 
     .post-gen-ig-footer-caption {
+        white-space: pre-wrap;
         margin-bottom: 8px;
+    }
+
+    :global(span.post-body-hashtag) {
+        color: rgb(var(--ig-link));
     }
 
     span.caption-profile-name {
@@ -354,13 +383,24 @@
         margin-bottom: 8px;
     }
 
+    .post-gen-ig-footer-bottom-row {
+        margin-bottom: 16px;
+        /* margin-top: 4px; */
+    }
+
     .post-gen-ig-footer-time-elapsed {
         color: rgb(var(--ig-secondary-text));
         font-size: 10px;
         line-height: 10px;
         text-transform: uppercase;
         letter-spacing: 0.2px;
-        margin-bottom: 12px;
-        margin-top: 4px;
+    }
+
+    .post-gen-ig-footer-see-translation {
+        color: rgb(var(--ig-primary-text));
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 6px;
+        font-weight: var(--font-weight-system-semibold);
     }
 </style>

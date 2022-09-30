@@ -1,54 +1,109 @@
 <script>
+    import InputNumber from "./InputNumber.svelte";
+    import InputSwitch from "./InputSwitch.svelte";
+    import InputText from "./InputText.svelte";
     import InstagramPost from "./InstagramPost.svelte";
+    import Textarea from "./Textarea.svelte";
 
     let options = {
         profile_name: "tychomusic",
         location: "New York, NY",
-        caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi sed nunc gravida pharetra eu eget massa. In turpis nibh, ultricies non sapien vitae, placerat mollis purus.`,
+        caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi sed nunc gravida pharetra eu eget massa. In turpis nibh, ultricies non sapien vitae, placerat mollis purus.
+[#swag]`,
         liked: false,
         more: true,
         num_likes: "2,478",
         num_comments: 25,
         num_slideshow_steps: 5,
         active_slideshow_index: 1,
+        see_translation: false,
+        story: false,
+        time_since: "1 day ago",
     };
 </script>
 
-<div class="post-gen">
-    <InstagramPost {options} />
+<div class="post-gen-wrapper">
+    <section>
+        <InstagramPost {options} />
+    </section>
+    <section>
+        <InputText bind:value={options.profile_name} label="Profile Name" />
+        <InputText bind:value={options.location} label="Location" />
+        <InputText bind:value={options.time_since} label="Time Posted" />
 
-    <label for="profile_name">Profile Name</label>
-    <input id="profile_name" type="text" bind:value={options.profile_name} />
+        <label for="post_caption">Post Caption</label>
+        <!-- <textarea id="post_caption" bind:value={options.caption} /> -->
+        <Textarea  bind:value={options.caption} />
 
-    <label for="location">Location</label>
-    <input id="location" type="text" bind:value={options.location} />
+        <InputSwitch
+            id="check_story"
+            bind:checked={options.story}
+            label="User Has Story"
+        />
 
-    <label for="post_caption">Post Caption</label>
-    <textarea id="post_caption" bind:value={options.caption} />
+        <InputSwitch
+            id="check_liked"
+            bind:checked={options.liked}
+            label="Liked"
+        />
 
-    <label for="check_liked">Liked</label>
-    <input id="check_liked" type="checkbox" bind:checked={options.liked} />
+        <InputSwitch
+            id="check_more"
+            bind:checked={options.more}
+            label="Show 'more'"
+        />
 
-    <label for="check_more">Show 'more'</label>
-    <input id="check_liked" type="checkbox" bind:checked={options.more} />
+        <InputSwitch
+            id="check_see_translation"
+            bind:checked={options.see_translation}
+            label="Show 'See translation'"
+        />
 
-    <label for="num_likes">Likes</label>
-    <input id="num_likes" type="text" bind:value={options.num_likes} />
+        <InputText bind:value={options.num_likes} label="Likes" />
 
-    <label for="num_comments">Comments</label>
-    <input id="num_comments" type="text" bind:value={options.num_comments} />
+        <InputText bind:value={options.num_comments} label="Comments" />
 
-    <label for="num_slideshow_steps">Num. Posts in Album</label>
-    <input
-        id="num_slideshow_steps"
-        type="number"
-        bind:value={options.num_slideshow_steps}
-    />
+        <InputNumber
+            bind:value={options.num_slideshow_steps}
+            label="Num. Posts in Album"
+        />
 
-    <label for="active_slideshow_index">Active Post</label>
-    <input
-        id="active_slideshow_index"
-        type="number"
-        bind:value={options.active_slideshow_index}
-    />
+        <InputNumber
+            bind:value={options.active_slideshow_index}
+            label="Active Post"
+        />
+    </section>
 </div>
+
+<style>
+    div.divider {
+        margin: 10px 0;
+        height: 0;
+        border-top: solid 0.5px rgb(183, 183, 183);
+    }
+
+    div.post-gen-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25em;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    section:last-child {
+        order: -1;
+    }
+
+    @media (max-width: 768px) {
+        div.post-gen-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        section:last-child {
+            order: unset;
+        }
+    }
+</style>
