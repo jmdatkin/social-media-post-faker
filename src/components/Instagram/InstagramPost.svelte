@@ -6,7 +6,7 @@
     import IgHeartIcon from "./IGHeartIcon.svelte";
     import IgProfileImage from "./IGProfileImage.svelte";
     import IgSendIcon from "./IGSendIcon.svelte";
-    import { makeParseFunction } from '../util';
+    import { makeParseFunction } from '../../util';
 
     export let options = {};
 
@@ -97,7 +97,8 @@
                     {/if}
                 </div>
                 <div class="post-gen-ig-footer-comments">
-                    View {options.num_comments} comments
+                    <!-- View {options.num_comments} comments -->
+                    {options.num_comments}
                 </div>
                 <div class="post-gen-ig-footer-bottom-row">
                     <span class="post-gen-ig-footer-time-elapsed"
@@ -148,7 +149,7 @@
         background-color: rgb(var(--ig-primary-background));
         color: rgb(var(--ig-primary-text));
         max-width: 470px;
-        width: 100%;
+        width: 470px;
         border: 1px solid rgb(var(--ig-elevated-separator));
     }
 

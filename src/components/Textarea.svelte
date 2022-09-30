@@ -15,7 +15,7 @@
 </div>
 
 <style>
-    div.inputtext {
+    div.textarea {
         margin-bottom: 6px;
     }
 

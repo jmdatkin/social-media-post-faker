@@ -1,19 +1,20 @@
 <script>
-    import InputNumber from "./InputNumber.svelte";
-    import InputSwitch from "./InputSwitch.svelte";
-    import InputText from "./InputText.svelte";
+    import Divider from "../Divider.svelte";
+    import InputNumber from "../InputNumber.svelte";
+    import InputSwitch from "../InputSwitch.svelte";
+    import InputText from "../InputText.svelte";
     import InstagramPost from "./InstagramPost.svelte";
-    import Textarea from "./Textarea.svelte";
+    import Textarea from "../Textarea.svelte";
 
     let options = {
-        profile_name: "tychomusic",
+        profile_name: "user",
         location: "New York, NY",
         caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi sed nunc gravida pharetra eu eget massa. In turpis nibh, ultricies non sapien vitae, placerat mollis purus.
-[#swag]`,
+[#hashtag]`,
         liked: false,
         more: true,
         num_likes: "2,478",
-        num_comments: 25,
+        num_comments: "View 25 comments",
         num_slideshow_steps: 5,
         active_slideshow_index: 1,
         see_translation: false,
@@ -24,7 +25,9 @@
 
 <div class="post-gen-wrapper">
     <section>
+        <div class="post-gen-border">
         <InstagramPost {options} />
+        </div>
     </section>
     <section>
         <InputText bind:value={options.profile_name} label="Profile Name" />
@@ -33,31 +36,33 @@
 
         <label for="post_caption">Post Caption</label>
         <!-- <textarea id="post_caption" bind:value={options.caption} /> -->
-        <Textarea  bind:value={options.caption} />
+        <Textarea bind:value={options.caption} />
 
-        <InputSwitch
-            id="check_story"
-            bind:checked={options.story}
-            label="User Has Story"
-        />
+        <div class="inputswitch-grid">
+            <InputSwitch
+                id="check_story"
+                bind:checked={options.story}
+                label="User Has Story"
+            />
 
-        <InputSwitch
-            id="check_liked"
-            bind:checked={options.liked}
-            label="Liked"
-        />
+            <InputSwitch
+                id="check_liked"
+                bind:checked={options.liked}
+                label="Liked"
+            />
 
-        <InputSwitch
-            id="check_more"
-            bind:checked={options.more}
-            label="Show 'more'"
-        />
+            <InputSwitch
+                id="check_more"
+                bind:checked={options.more}
+                label="Show 'more'"
+            />
 
-        <InputSwitch
-            id="check_see_translation"
-            bind:checked={options.see_translation}
-            label="Show 'See translation'"
-        />
+            <InputSwitch
+                id="check_see_translation"
+                bind:checked={options.see_translation}
+                label="Show 'See translation'"
+            />
+        </div>
 
         <InputText bind:value={options.num_likes} label="Likes" />
 
@@ -76,16 +81,20 @@
 </div>
 
 <style>
-    div.divider {
-        margin: 10px 0;
-        height: 0;
-        border-top: solid 0.5px rgb(183, 183, 183);
-    }
-
     div.post-gen-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.25em;
+    }
+
+    div.post-gen-border {
+        padding: 15px;
+    }
+
+    div.inputswitch-grid {
+        display: grid;
+        gap: 0.5em;
+        grid-template-columns: 1fr 1fr;
     }
 
     section {
@@ -97,7 +106,7 @@
         order: -1;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 860px) {
         div.post-gen-wrapper {
             grid-template-columns: 1fr;
         }
