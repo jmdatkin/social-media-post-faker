@@ -27,7 +27,7 @@
         <div class="post-gen-ig-header">
             <div class="post-gen-ig-header-content">
                 <header class="post-gen-ig-header-header">
-                    <IgProfileImage story={options.story} />
+                    <IgProfileImage src={options.profileImageURL} story={options.story} />
                     <div class="post-gen-ig-profile-name-wrapper">
                         <div class="post-gen-ig-profile-name">
                             <span class="profile-name-text">
@@ -51,7 +51,7 @@
                         <div class="post-gen-ig-body-content-inner">
                             <img
                                 class="post-gen-ig-body-image"
-                                src="bubble.jpg"
+                                src={options.imageURL}
                             />
                         </div>
                     </div>

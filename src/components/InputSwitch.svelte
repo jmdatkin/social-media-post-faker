@@ -115,6 +115,6 @@
     }
 
     .inputswitch-slider:active:after {
-        width: 23px;
+        width: 18px;
     }
 </style>

@@ -1,5 +1,6 @@
 <script>
     export let story = false;
+    export let src;
 </script>
 
 <div class="ig-post-profile-image">
@@ -24,7 +25,7 @@
                 class="ig-post-profile-image-image"
                 crossorigin="anonymous"
                 draggable="false"
-                src="avatar.jpg"
+                src={src}
             /></span
         >
     </div>

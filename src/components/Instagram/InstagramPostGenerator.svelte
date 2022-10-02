@@ -5,12 +5,15 @@
     import InputText from "../InputText.svelte";
     import InstagramPost from "./InstagramPost.svelte";
     import Textarea from "../Textarea.svelte";
+    import FileUpload from "../FileUpload.svelte";
 
     let options = {
         profile_name: "user",
         location: "New York, NY",
         caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi sed nunc gravida pharetra eu eget massa. In turpis nibh, ultricies non sapien vitae, placerat mollis purus.
 [#hashtag]`,
+        imageURL: 'bubble.jpg',
+        profileImageURL: 'avatar.jpg',
         liked: false,
         more: true,
         num_likes: "2,478",
@@ -20,6 +23,26 @@
         see_translation: false,
         story: false,
         time_since: "1 day ago",
+    };
+
+    const handleMainUpload = function(file) {
+        let fr = new FileReader();
+
+        fr.onload = function() {
+            options.imageURL = fr.result;
+        };
+
+        fr.readAsDataURL(file);
+    };
+
+    const handleProPicUpload = function(file) {
+        let fr = new FileReader();
+
+        fr.onload = function() {
+            options.profileImageURL = fr.result;
+        };
+
+        fr.readAsDataURL(file);
     };
 </script>
 
@@ -77,6 +100,11 @@
             bind:value={options.active_slideshow_index}
             label="Active Post"
         />
+
+        <div class="inputswitch-grid">
+            <FileUpload onUpload={handleMainUpload} label="Post Image" />
+            <FileUpload onUpload={handleProPicUpload} label="User Profile Image" />
+        </div>
     </section>
 </div>
 
