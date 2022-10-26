@@ -59,10 +59,6 @@
         </label>
         <div
             class="fileupload-drop-target"
-            on:dragstart={onDragstart}
-            on:drop={onDrop}
-            on:dragover={onDragover}
-            on:dragend={onDragend}
         >
         <button on:click={triggerDialog}>
             <img

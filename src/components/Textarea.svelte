@@ -7,6 +7,7 @@
     {#if label}
     <label>
         {label}
+        <slot></slot>
     <textarea bind:value={value}/>
     </label>
     {:else}

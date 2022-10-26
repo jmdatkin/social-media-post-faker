@@ -61,7 +61,7 @@
         <div class="post-gen-ig-footer">
             <div class="post-gen-ig-footer-content">
                 <div class="post-gen-ig-slideshow-indicator">
-                    {#each Array(options.num_slideshow_steps) as step, idx}
+                    {#each Array(Math.max(0,options.num_slideshow_steps)) as step, idx}
                         <div
                             class={idx === options.active_slideshow_index - 1
                                 ? "slideshow-marker slideshow-marker-active"

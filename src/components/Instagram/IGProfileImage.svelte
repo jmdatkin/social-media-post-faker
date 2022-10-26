@@ -21,7 +21,6 @@
             tabindex="-1"
         >
             <img
-                alt="tychomusic's profile picture"
                 class="ig-post-profile-image-image"
                 crossorigin="anonymous"
                 draggable="false"
@@ -32,6 +31,10 @@
 </div>
 
 <style>
+    img {
+        object-fit: cover;
+    }
+
     .ig-post-profile-image {
         display: block;
         height: -moz-fit-content;

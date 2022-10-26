@@ -6,14 +6,15 @@
     import InstagramPost from "./InstagramPost.svelte";
     import Textarea from "../Textarea.svelte";
     import FileUpload from "../FileUpload.svelte";
+    import Tooltip from "../Tooltip.svelte";
 
     let options = {
         profile_name: "user",
         location: "New York, NY",
-        caption: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi sed nunc gravida pharetra eu eget massa. In turpis nibh, ultricies non sapien vitae, placerat mollis purus.
+        caption: `Hello world! [@zuck]
 [#hashtag]`,
-        imageURL: 'bubble.jpg',
-        profileImageURL: 'avatar.jpg',
+        imageURL: "buddha.jpg",
+        profileImageURL: "avatar.png",
         liked: false,
         more: true,
         num_likes: "2,478",
@@ -25,20 +26,20 @@
         time_since: "1 day ago",
     };
 
-    const handleMainUpload = function(file) {
+    const handleMainUpload = function (file) {
         let fr = new FileReader();
 
-        fr.onload = function() {
+        fr.onload = function () {
             options.imageURL = fr.result;
         };
 
         fr.readAsDataURL(file);
     };
 
-    const handleProPicUpload = function(file) {
+    const handleProPicUpload = function (file) {
         let fr = new FileReader();
 
-        fr.onload = function() {
+        fr.onload = function () {
             options.profileImageURL = fr.result;
         };
 
@@ -49,7 +50,7 @@
 <div class="post-gen-wrapper">
     <section>
         <div class="post-gen-border">
-        <InstagramPost {options} />
+            <InstagramPost {options} />
         </div>
     </section>
     <section>
@@ -57,9 +58,12 @@
         <InputText bind:value={options.location} label="Location" />
         <InputText bind:value={options.time_since} label="Time Posted" />
 
-        <label for="post_caption">Post Caption</label>
         <!-- <textarea id="post_caption" bind:value={options.caption} /> -->
-        <Textarea bind:value={options.caption} />
+        <Textarea bind:value={options.caption} label="Post Caption">
+            <Tooltip>
+                Wrap text in square brackets ([, ]) for #hashtag or @mention-style formatting.
+            </Tooltip>
+        </Textarea>
 
         <div class="inputswitch-grid">
             <InputSwitch
@@ -102,8 +106,11 @@
         />
 
         <div class="inputswitch-grid">
-            <FileUpload onUpload={handleMainUpload} label="Post Image" />
-            <FileUpload onUpload={handleProPicUpload} label="User Profile Image" />
+            <FileUpload onUpload={handleMainUpload} label="Main Image" />
+            <FileUpload
+                onUpload={handleProPicUpload}
+                label="User Profile Image"
+            />
         </div>
     </section>
 </div>
@@ -137,6 +144,10 @@
     @media (max-width: 860px) {
         div.post-gen-wrapper {
             grid-template-columns: 1fr;
+        }
+
+        div.post-gen-border {
+            padding: 0px;
         }
 
         section:last-child {

@@ -38,6 +38,15 @@
 		margin: 5em 0;
 		/* padding: 10em 0; */
 	}
+	
+	button {
+		margin-top: 12px;
+	}
+
+	h1 {
+		letter-spacing: -0.05rem;
+		/* font-family: monospace; */
+	}
 
 	main {
 		/* text-align: center; */
@@ -61,6 +70,7 @@
 	@media (max-width: 860px) {
 		main {
 			/* max-width: 786px; */
+			padding: 0;
 		max-width: none;
 		}
 
