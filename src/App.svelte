@@ -22,7 +22,7 @@
 
 <div class="container">
 	<main>
-		<h1>Instagram Post Generator</h1>
+		<h1>Fake Instagram Post Generator</h1>
 		<Divider></Divider>
 		<InstagramPostGenerator />
 		<button on:click={save}>Save</button>
